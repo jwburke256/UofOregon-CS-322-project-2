@@ -8,17 +8,13 @@ from flask import Flask, abort, send_from_directory, render_template
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    if '~' in str(request.path):
+@app.route("/<path:request>")
+def hello(request):
+    if '~' in str(request):
         abort(403)
-    if '/..' in str(request.path):
+    if '..' in str(request):
         abort(403)
-    if path.exists(str(request.path)):
-        render_template(request.path), 200
-    else:
-        abort(404)
-
+    return send_from_directory('./pages', request), 200
 
 @app.errorhandler(403)
 def forbidden(e):
@@ -26,13 +22,8 @@ def forbidden(e):
 
 
 @app.errorhandler(404)
-def forbidden(e):
+def notfound(e):
     return send_from_directory('./pages','404.html'), 404
-
-
-@app.errorhandler(401)
-def forbidden(e):
-    return send_from_directory('./pages','401.html'), 401
 
 
 if __name__ == "__main__":
