@@ -1,6 +1,6 @@
 # UOCIS322 - Project 2 #
 
-This project will get you started with Docker and Flask. You need to have Docker set up on your machine to complete this project. You can alternatively use the machine we talked about in class.
+This project is an introduction to getting started with Docker and Flask. It builds upon what was accomplished in project 1, except for utilizing the new tools provided.
 
 ### Name: Jacob Burke
 
