@@ -8,22 +8,17 @@ from flask import Flask, abort, send_from_directory, render_template
 
 app = Flask(__name__)
 
-@app.route("/pages")
+@app.route("/")
 def hello():
-    #print(path)
-    #print(path.exists(request.path))
     if '~' in str(request.path):
         abort(403)
     if '/..' in str(request.path):
         abort(403)
     if path.exists(str(request.path)):
         render_template(request.path), 200
-    #else:
-        #abort(404)
+    else:
+        abort(404)
 
-
-    #return send_from_directory('pages/', 'trivia.html'), 200
-    return render_template('<p>failure</p>'), 200
 
 @app.errorhandler(403)
 def forbidden(e):
@@ -38,17 +33,6 @@ def forbidden(e):
 @app.errorhandler(401)
 def forbidden(e):
     return send_from_directory('./pages','401.html'), 401
-
-
-#def get_options():
-    """
-    Options from command line or configuration file.
-    Returns namespace object with option value for port
-    """
-    # Defaults from configuration files;
-    #   on conflict, the last value read has precedence
-    #options = config.configuration()
-    # We want: PORT, DOCROOT, possibly LOGGING
 
 
 if __name__ == "__main__":
